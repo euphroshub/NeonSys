@@ -8,65 +8,142 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>NeonSys - System Monitor</h1>
-    <div id="os" class="os-info">
-        <span class="os-label">OS:</span>
-        <span id="os-name"></span>
+    <div class="tabs">
+        <button class="tab-button active" data-tab="monitor">System Monitor</button>
+        <button class="tab-button" data-tab="options">Options</button>
     </div>
-    <div class="dashboard">
-        <div class="card">
-            <div id="cpu">
-                <div class="info-header">CPU Usage</div>
-                <div class="usage-container">
-                    <div class="progress-bar">
-                        <div class="progress" id="cpu-progress"></div>
+
+    <div class="tab-content active" id="monitor-tab">
+        <h1>NeonSys - System Monitor</h1>
+        <div id="os" class="os-info">
+            <span class="os-label">OS:</span>
+            <span id="os-name"></span>
+        </div>
+        <div class="dashboard">
+            <div class="card">
+                <div id="cpu">
+                    <div class="info-header">CPU Usage</div>
+                    <div class="usage-container">
+                        <div class="progress-bar">
+                            <div class="progress" id="cpu-progress"></div>
+                        </div>
+                        <div class="usage-text" id="cpu-usage"></div>
                     </div>
-                    <div class="usage-text" id="cpu-usage"></div>
-                </div>
-                <div class="chart-container">
-                    <canvas id="cpuChart"></canvas>
+                    <div class="chart-container">
+                        <canvas id="cpuChart"></canvas>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card">
-            <div id="memory">
-                <div class="info-header">Memory Usage</div>
-                <div class="usage-container">
-                    <div class="progress-bar">
-                        <div class="progress" id="memory-progress"></div>
+            <div class="card">
+                <div id="memory">
+                    <div class="info-header">Memory Usage</div>
+                    <div class="usage-container">
+                        <div class="progress-bar">
+                            <div class="progress" id="memory-progress"></div>
+                        </div>
+                        <div class="usage-text" id="memory-usage"></div>
                     </div>
-                    <div class="usage-text" id="memory-usage"></div>
-                </div>
-                <div class="chart-container">
-                    <canvas id="memoryChart"></canvas>
+                    <div class="chart-container">
+                        <canvas id="memoryChart"></canvas>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card">
-            <div id="network">
-                <div class="info-header">Network Usage</div>
-                <div class="chart-container">
-                    <canvas id="networkChart"></canvas>
-                </div>
-                <div id="network-info"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div id="disk">
-                <div class="info-header">Disk Usage</div>
-                <div class="usage-container">
-                    <div class="progress-bar">
-                        <div class="progress" id="disk-progress"></div>
+            <div class="card">
+                <div id="network">
+                    <div class="info-header">Network Usage</div>
+                    <div class="chart-container">
+                        <canvas id="networkChart"></canvas>
                     </div>
-                    <div class="usage-text" id="disk-usage"></div>
+                    <div id="network-info"></div>
                 </div>
-                <div class="chart-container">
-                    <canvas id="diskPieChart"></canvas>
+            </div>
+            <div class="card">
+                <div id="disk">
+                    <div class="info-header">Disk Usage</div>
+                    <div class="usage-container">
+                        <div class="progress-bar">
+                            <div class="progress" id="disk-progress"></div>
+                        </div>
+                        <div class="usage-text" id="disk-usage"></div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="diskPieChart"></canvas>
+                    </div>
+                    <div id="disk-info"></div>
                 </div>
-                <div id="disk-info"></div>
             </div>
         </div>
     </div>
+
+    <div class="tab-content" id="options-tab">
+        <h1>Options</h1>
+        <div class="options-container">
+            <div class="option-section">
+                <h2>Background</h2>
+                <div class="option-item">
+                    <label for="background-opacity">Background Opacity:</label>
+                    <input type="range" id="background-opacity" min="0" max="100" value="100">
+                    <span class="value-display">100%</span>
+                </div>
+            </div>
+
+            <div class="option-section">
+                <h2>Colors</h2>
+                <div class="option-item">
+                    <label for="cpu-color">CPU Color:</label>
+                    <input type="color" id="cpu-color" value="#00ff9d">
+                </div>
+                <div class="option-item">
+                    <label for="memory-color">Memory Color:</label>
+                    <input type="color" id="memory-color" value="#00ffff">
+                </div>
+                <div class="option-item">
+                    <label for="network-download-color">Network Download Color:</label>
+                    <input type="color" id="network-download-color" value="#00ff9d">
+                </div>
+                <div class="option-item">
+                    <label for="network-upload-color">Network Upload Color:</label>
+                    <input type="color" id="network-upload-color" value="#00ffff">
+                </div>
+                <div class="option-item">
+                    <label for="disk-color">Disk Color:</label>
+                    <input type="color" id="disk-color" value="#00ff9d">
+                </div>
+            </div>
+
+            <div class="option-section">
+                <h2>Font</h2>
+                <div class="option-item">
+                    <label for="font-family">Font Family:</label>
+                    <select id="font-family">
+                        <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Segoe UI</option>
+                        <option value="Arial, sans-serif">Arial</option>
+                        <option value="'Helvetica Neue', Helvetica, Arial, sans-serif">Helvetica Neue</option>
+                    </select>
+                </div>
+                <div class="option-item">
+                    <label for="font-size">Font Size:</label>
+                    <input type="range" id="font-size" min="12" max="24" value="16">
+                    <span class="value-display">16px</span>
+                </div>
+            </div>
+
+            <div class="option-section">
+                <h2>Graph Settings</h2>
+                <div class="option-item">
+                    <label for="data-points">Data Points:</label>
+                    <input type="range" id="data-points" min="5" max="60" value="15">
+                    <span class="value-display">15</span>
+                </div>
+                <div class="option-item">
+                    <label for="update-interval">Update Interval (ms):</label>
+                    <input type="range" id="update-interval" min="500" max="5000" value="1000" step="500">
+                    <span class="value-display">1000ms</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="renderer.js"></script>
 </body>
 </html>
