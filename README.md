@@ -60,14 +60,6 @@ Download the .exe installer from releases and run it.
 To build the application for different platforms:
 
 ```bash
-# Build for Linux (Debian/Ubuntu)
-npm run dist:linux
-
-# Build for macOS
-npm run dist:mac
-
-# Build for Windows
-npm run dist:win
 
 # Build for all platforms
 npm run dist
