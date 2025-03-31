@@ -8,62 +8,97 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>NeonSys - System Monitor</h1>
-    <div id="os" class="os-info">
-        <span class="os-label">OS:</span>
-        <span id="os-name"></span>
+    <div class="tabs">
+        <button class="tab-button active" data-tab="system-monitor">System Monitor</button>
+        <button class="tab-button" data-tab="options">Options</button>
     </div>
-    <div class="dashboard">
-        <div class="card">
-            <div id="cpu">
-                <div class="info-header">CPU Usage</div>
-                <div class="usage-container">
-                    <div class="progress-bar">
-                        <div class="progress" id="cpu-progress"></div>
+
+    <div class="tab-content active" id="system-monitor">
+        <h1>NeonSys - System Monitor</h1>
+        <div id="os" class="os-info">
+            <span class="os-label">OS:</span>
+            <span id="os-name"></span>
+        </div>
+        <div class="dashboard">
+            <div class="card">
+                <div id="cpu">
+                    <div class="info-header">CPU Usage</div>
+                    <div class="usage-container">
+                        <div class="progress-bar">
+                            <div class="progress" id="cpu-progress"></div>
+                        </div>
+                        <div class="usage-text" id="cpu-usage"></div>
                     </div>
-                    <div class="usage-text" id="cpu-usage"></div>
+                    <div class="chart-container">
+                        <canvas id="cpuChart"></canvas>
+                    </div>
                 </div>
-                <div class="chart-container">
-                    <canvas id="cpuChart"></canvas>
+            </div>
+            <div class="card">
+                <div id="memory">
+                    <div class="info-header">Memory Usage</div>
+                    <div class="usage-container">
+                        <div class="progress-bar">
+                            <div class="progress" id="memory-progress"></div>
+                        </div>
+                        <div class="usage-text" id="memory-usage"></div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="memoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div id="network">
+                    <div class="info-header">Network Usage</div>
+                    <div class="chart-container">
+                        <canvas id="networkChart"></canvas>
+                    </div>
+                    <div id="network-info"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div id="disk">
+                    <div class="info-header">Disk Usage</div>
+                    <div class="usage-container">
+                        <div class="progress-bar">
+                            <div class="progress" id="disk-progress"></div>
+                        </div>
+                        <div class="usage-text" id="disk-usage"></div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="diskPieChart"></canvas>
+                    </div>
+                    <div id="disk-info"></div>
                 </div>
             </div>
         </div>
-        <div class="card">
-            <div id="memory">
-                <div class="info-header">Memory Usage</div>
-                <div class="usage-container">
-                    <div class="progress-bar">
-                        <div class="progress" id="memory-progress"></div>
-                    </div>
-                    <div class="usage-text" id="memory-usage"></div>
-                </div>
-                <div class="chart-container">
-                    <canvas id="memoryChart"></canvas>
+    </div>
+
+    <div class="tab-content" id="options">
+        <h1>Options</h1>
+        <div class="options-container">
+            <div class="option-section">
+                <h2>Color Theme</h2>
+                <div class="theme-options">
+                    <button class="theme-button" data-theme="neon">Neon Theme</button>
+                    <button class="theme-button" data-theme="dark">Dark Theme</button>
+                    <button class="theme-button" data-theme="light">Light Theme</button>
                 </div>
             </div>
-        </div>
-        <div class="card">
-            <div id="network">
-                <div class="info-header">Network Usage</div>
-                <div class="chart-container">
-                    <canvas id="networkChart"></canvas>
+            <div class="option-section">
+                <h2>Font Settings</h2>
+                <div class="font-options">
+                    <label for="font-family">Font Family:</label>
+                    <select id="font-family">
+                        <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Default</option>
+                        <option value="'Roboto', sans-serif">Roboto</option>
+                        <option value="'Open Sans', sans-serif">Open Sans</option>
+                        <option value="'Montserrat', sans-serif">Montserrat</option>
+                    </select>
+                    <label for="font-size">Font Size:</label>
+                    <input type="range" id="font-size" min="12" max="24" value="16">
                 </div>
-                <div id="network-info"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div id="disk">
-                <div class="info-header">Disk Usage</div>
-                <div class="usage-container">
-                    <div class="progress-bar">
-                        <div class="progress" id="disk-progress"></div>
-                    </div>
-                    <div class="usage-text" id="disk-usage"></div>
-                </div>
-                <div class="chart-container">
-                    <canvas id="diskPieChart"></canvas>
-                </div>
-                <div id="disk-info"></div>
             </div>
         </div>
     </div>

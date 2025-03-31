@@ -268,3 +268,190 @@ h1 {
 .disk-drive:last-child {
     margin-bottom: 0;
 }
+
+/* Tab Styles */
+.tabs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    background: none;
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    color: #00ff9d;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px #00ff9d;
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+}
+
+.tab-button:hover {
+    background-color: rgba(0, 255, 157, 0.1);
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+    transform: translateY(-2px);
+}
+
+.tab-button.active {
+    background-color: rgba(0, 255, 157, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.6);
+    border-color: #00ff9d;
+}
+
+/* Adjust main content to account for fixed tabs */
+.tab-content {
+    display: none;
+    padding: 20px;
+    margin-top: 80px; /* Add space for fixed tabs */
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Options Styles */
+.options-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.option-section {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(0, 255, 157, 0.2);
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+    transition: all 0.3s ease;
+}
+
+.option-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
+}
+
+.option-section h2 {
+    color: #00ff9d;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    text-shadow: 0 0 10px #00ff9d;
+}
+
+.theme-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.theme-button {
+    padding: 10px 20px;
+    background: none;
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    color: #00ff9d;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px #00ff9d;
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+}
+
+.theme-button:hover {
+    background-color: rgba(0, 255, 157, 0.1);
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+    transform: translateY(-2px);
+}
+
+.theme-button.active {
+    background-color: rgba(0, 255, 157, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.6);
+    border-color: #00ff9d;
+}
+
+.font-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.font-options label {
+    color: #00ff9d;
+    display: block;
+    margin-bottom: 5px;
+    text-shadow: 0 0 5px #00ff9d;
+}
+
+.font-options select,
+.font-options input[type="range"] {
+    width: 100%;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    color: #00ff9d;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+    transition: all 0.3s ease;
+}
+
+.font-options select:focus,
+.font-options input[type="range"]:focus {
+    outline: none;
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+    border-color: #00ff9d;
+}
+
+.font-options select option {
+    background-color: #0a0a0a;
+    color: #00ff9d;
+}
+
+/* Custom range input styling */
+input[type="range"] {
+    -webkit-appearance: none;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #00ff9d;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px #00ff9d;
+    transition: all 0.3s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #00ff9d;
+}
+
+/* Theme-specific styles */
+[data-theme="neon"] {
+    --primary-color: #00ff00;
+    --secondary-color: #00ffff;
+    --background-color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] {
+    --primary-color: #ffffff;
+    --secondary-color: #cccccc;
+    --background-color: #1a1a1a;
+}
+
+[data-theme="light"] {
+    --primary-color: #333333;
+    --secondary-color: #666666;
+    --background-color: #ffffff;
+}

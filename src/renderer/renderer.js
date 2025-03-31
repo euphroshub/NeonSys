@@ -323,4 +323,61 @@ document.addEventListener('DOMContentLoaded', () => {
             window.versions.startUpdates();
         }
     });
+
+    // Tab Switching
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons and contents
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked button and corresponding content
+            button.classList.add('active');
+            document.getElementById(button.dataset.tab).classList.add('active');
+        });
+    });
+
+    // Theme Switching
+    document.querySelectorAll('.theme-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const theme = button.dataset.theme;
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        });
+    });
+
+    // Font Settings
+    const fontFamilySelect = document.getElementById('font-family');
+    const fontSizeInput = document.getElementById('font-size');
+
+    // Load saved font settings
+    const savedFontFamily = localStorage.getItem('fontFamily') || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+    const savedFontSize = localStorage.getItem('fontSize') || '16';
+
+    fontFamilySelect.value = savedFontFamily;
+    fontSizeInput.value = savedFontSize;
+
+    // Apply font settings
+    function applyFontSettings() {
+        document.body.style.fontFamily = fontFamilySelect.value;
+        document.body.style.fontSize = `${fontSizeInput.value}px`;
+    }
+
+    // Save and apply font settings on change
+    fontFamilySelect.addEventListener('change', () => {
+        localStorage.setItem('fontFamily', fontFamilySelect.value);
+        applyFontSettings();
+    });
+
+    fontSizeInput.addEventListener('input', () => {
+        localStorage.setItem('fontSize', fontSizeInput.value);
+        applyFontSettings();
+    });
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'neon';
+    document.body.setAttribute('data-theme', savedTheme);
+
+    // Apply initial font settings
+    applyFontSettings();
 });
