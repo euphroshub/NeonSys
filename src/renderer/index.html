@@ -9,25 +9,62 @@
 </head>
 <body>
     <h1>NeonSys - System Monitor</h1>
+    <div id="os" class="os-info">
+        <span class="os-label">OS:</span>
+        <span id="os-name"></span>
+    </div>
     <div class="dashboard">
         <div class="card">
-            <div id="cpu"></div>
-            <canvas id="cpuChart"></canvas>
+            <div id="cpu">
+                <div class="info-header">CPU Usage</div>
+                <div class="usage-container">
+                    <div class="progress-bar">
+                        <div class="progress" id="cpu-progress"></div>
+                    </div>
+                    <div class="usage-text" id="cpu-usage"></div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="cpuChart"></canvas>
+                </div>
+            </div>
         </div>
         <div class="card">
-            <div id="memory"></div>
-            <canvas id="memoryChart"></canvas>
+            <div id="memory">
+                <div class="info-header">Memory Usage</div>
+                <div class="usage-container">
+                    <div class="progress-bar">
+                        <div class="progress" id="memory-progress"></div>
+                    </div>
+                    <div class="usage-text" id="memory-usage"></div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="memoryChart"></canvas>
+                </div>
+            </div>
         </div>
         <div class="card">
-            <div id="os"></div>
+            <div id="network">
+                <div class="info-header">Network Usage</div>
+                <div class="chart-container">
+                    <canvas id="networkChart"></canvas>
+                </div>
+                <div id="network-info"></div>
+            </div>
         </div>
         <div class="card">
-            <div id="disk"></div>
-            <canvas id="diskChart"></canvas>
-        </div>
-        <div class="card">
-            <div id="network"></div>
-            <canvas id="networkChart"></canvas>
+            <div id="disk">
+                <div class="info-header">Disk Usage</div>
+                <div class="usage-container">
+                    <div class="progress-bar">
+                        <div class="progress" id="disk-progress"></div>
+                    </div>
+                    <div class="usage-text" id="disk-usage"></div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="diskPieChart"></canvas>
+                </div>
+                <div id="disk-info"></div>
+            </div>
         </div>
     </div>
     <script src="renderer.js"></script>

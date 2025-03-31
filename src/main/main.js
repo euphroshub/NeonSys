@@ -10,8 +10,8 @@ let mainWindow;
 app.whenReady().then(() => {
     // Create the main browser window
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1024,
+        height: 768,
         webPreferences: {
             // Enable preload script for secure IPC communication
             preload: path.join(__dirname, 'preload.js')
