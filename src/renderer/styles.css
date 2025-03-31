@@ -1,0 +1,104 @@
+/* Global styles */
+body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Title styling */
+h1 {
+    color: #00ff9d;
+    text-shadow: 0 0 10px #00ff9d,
+                 0 0 20px #00ff9d,
+                 0 0 30px #00ff9d;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    text-align: center;
+}
+
+/* System info container */
+#cpu, #memory, #os, #disk {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+    width: 80%;
+    max-width: 600px;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+}
+
+/* Individual item styling */
+#cpu {
+    border-color: #00ff9d;
+    text-shadow: 0 0 5px #00ff9d;
+}
+
+#memory {
+    border-color: #00ffff;
+    text-shadow: 0 0 5px #00ffff;
+}
+
+#os {
+    border-color: #ff00ff;
+    text-shadow: 0 0 5px #ff00ff;
+}
+
+#disk {
+    border-color: #ff00ff;
+    text-shadow: 0 0 5px #ff00ff;
+}
+
+/* Hover effects */
+#cpu:hover, #memory:hover, #os:hover, #disk:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    #cpu, #memory, #os, #disk {
+        width: 90%;
+        padding: 15px;
+        font-size: 1em;
+    }
+}
+
+/* Animation for the title */
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 10px #00ff9d,
+                     0 0 20px #00ff9d,
+                     0 0 30px #00ff9d;
+    }
+    50% {
+        text-shadow: 0 0 20px #00ff9d,
+                     0 0 30px #00ff9d,
+                     0 0 40px #00ff9d;
+    }
+    100% {
+        text-shadow: 0 0 10px #00ff9d,
+                     0 0 20px #00ff9d,
+                     0 0 30px #00ff9d;
+    }
+}
+
+h1 {
+    animation: glow 2s ease-in-out infinite;
+}
