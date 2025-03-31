@@ -102,3 +102,47 @@ h1 {
 h1 {
     animation: glow 2s ease-in-out infinite;
 }
+
+/* Usage container styles */
+.usage-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff9d, #00ffff);
+    box-shadow: 0 0 10px #00ff9d;
+    transition: width 0.3s ease;
+}
+
+.usage-text {
+    min-width: 60px;
+    text-align: right;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ff9d;
+}
+
+.info-header {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.disk-drive {
+    margin-bottom: 15px;
+}
+
+.disk-drive:last-child {
+    margin-bottom: 0;
+}

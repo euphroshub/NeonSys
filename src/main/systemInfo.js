@@ -3,18 +3,38 @@ const si = require('systeminformation');
 
 /**
  * Gathers system information using the systeminformation library
- * @returns {Promise<Object>} An object containing CPU, memory, OS, and disk information
+ * @returns {Promise<Object>} An object containing CPU, memory, OS, and disk information with usage percentages
  */
 async function getSystemStats() {
+    // Get current CPU usage
+    const cpuLoad = await si.currentLoad();
+    
+    // Get memory information
+    const mem = await si.mem();
+    const memoryUsagePercent = ((mem.total - mem.free) / mem.total * 100).toFixed(2);
+    
+    // Get disk information
+    const disk = await si.fsSize();
+    const diskUsagePercent = disk.map(drive => ({
+        ...drive,
+        usagePercent: ((drive.size - drive.available) / drive.size * 100).toFixed(2)
+    }));
+
     return {
-        // Get CPU information (manufacturer, model, speed, etc.)
-        cpu: await si.cpu(),
-        // Get memory information (total, free, used)
-        mem: await si.mem(),
-        // Get operating system information (distro, release, hostname)
+        // Get CPU information with current usage
+        cpu: {
+            ...await si.cpu(),
+            usagePercent: cpuLoad.currentLoad.toFixed(2)
+        },
+        // Get memory information with usage percentage
+        mem: {
+            ...mem,
+            usagePercent: memoryUsagePercent
+        },
+        // Get operating system information
         os: await si.osInfo(),
-        // Get disk information (size, free space, mount points)
-        disk: await si.fsSize()
+        // Get disk information with usage percentages
+        disk: diskUsagePercent
     }
 }
 
