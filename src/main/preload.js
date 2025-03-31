@@ -8,8 +8,8 @@ contextBridge.exposeInMainWorld('versions', {
     send: (channel, data) => ipcRenderer.send(channel, data),
     // Function to receive messages from the main process
     receive: (channel, func) => ipcRenderer.on(channel, (event, ...args) => func(...args)),
-    // Commented out version information that could be exposed if needed
-    //node: () => process.versions.node,
-    //chrome: () => process.versions.chrome,
-    //electron: () => process.versions.electron
+    // Function to start periodic updates
+    startUpdates: () => ipcRenderer.send('start-updates'),
+    // Function to stop periodic updates
+    stopUpdates: () => ipcRenderer.send('stop-updates')
 });

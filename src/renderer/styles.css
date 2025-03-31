@@ -11,6 +11,29 @@ body {
     align-items: center;
 }
 
+/* Dashboard layout */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
+}
+
 /* Title styling */
 h1 {
     color: #00ff9d;
@@ -23,17 +46,9 @@ h1 {
 }
 
 /* System info container */
-#cpu, #memory, #os, #disk {
-    background-color: rgba(0, 0, 0, 0.5);
-    border: 2px solid;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 15px 0;
-    width: 80%;
-    max-width: 600px;
+#cpu, #memory, #os, #disk, #network {
+    margin-bottom: 15px;
     font-size: 1.2em;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
 }
 
 /* Individual item styling */
@@ -57,10 +72,48 @@ h1 {
     text-shadow: 0 0 5px #ff00ff;
 }
 
-/* Hover effects */
-#cpu:hover, #memory:hover, #os:hover, #disk:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
+/* Network styles */
+.network-interface {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.network-interface:last-child {
+    margin-bottom: 0;
+}
+
+.network-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.stat-label {
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff;
+}
+
+.stat-value {
+    font-weight: bold;
+    color: #00ff9d;
+    text-shadow: 0 0 5px #00ff9d;
+}
+
+/* Chart container */
+canvas {
+    width: 100% !important;
+    height: 200px !important;
+    margin-top: 15px;
 }
 
 /* Responsive design */
@@ -73,8 +126,11 @@ h1 {
         font-size: 2em;
     }
     
-    #cpu, #memory, #os, #disk {
-        width: 90%;
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+    
+    .card {
         padding: 15px;
         font-size: 1em;
     }

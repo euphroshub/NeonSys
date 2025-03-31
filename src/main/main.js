@@ -30,6 +30,27 @@ ipcMain.on('request-system-info', async (event, callback) => {
     event.reply('system-info', stats);
 });
 
+// Set up periodic system information updates
+let updateInterval;
+
+ipcMain.on('start-updates', (event) => {
+    // Send initial update
+    getSystemStats().then(stats => event.reply('system-info', stats));
+    
+    // Set up periodic updates every 1 second
+    updateInterval = setInterval(async () => {
+        const stats = await getSystemStats();
+        event.reply('system-info', stats);
+    }, 1000);
+});
+
+ipcMain.on('stop-updates', () => {
+    if (updateInterval) {
+        clearInterval(updateInterval);
+        updateInterval = null;
+    }
+});
+
 // Handle application window closing
 // On macOS, the app typically stays running when all windows are closed
 app.on('window-all-closed', () => {
