@@ -1,177 +1,5 @@
 // Wait for the DOM to be fully loaded before running our code
 document.addEventListener('DOMContentLoaded', () => {
-    // Tab switching functionality
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
-
-    tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class from all buttons and contents
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-
-            // Add active class to clicked button and corresponding content
-            button.classList.add('active');
-            document.getElementById(`${button.dataset.tab}-tab`).classList.add('active');
-        });
-    });
-
-    // Options handling
-    const options = {
-        backgroundOpacity: 100,
-        cpuColor: '#00ff9d',
-        memoryColor: '#00ffff',
-        networkDownloadColor: '#00ff9d',
-        networkUploadColor: '#00ffff',
-        diskColor: '#00ff9d',
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-        fontSize: 16,
-        dataPoints: 15,
-        updateInterval: 1000
-    };
-
-    // Load saved options
-    const savedOptions = localStorage.getItem('monitorOptions');
-    if (savedOptions) {
-        Object.assign(options, JSON.parse(savedOptions));
-        applyOptions();
-    }
-
-    // Background opacity
-    const backgroundOpacity = document.getElementById('background-opacity');
-    backgroundOpacity.value = options.backgroundOpacity;
-    backgroundOpacity.addEventListener('input', (e) => {
-        options.backgroundOpacity = e.target.value;
-        // Update the opacity of all cards and containers
-        document.querySelectorAll('.card, .options-container, .os-info, .network-interface, .progress-bar').forEach(element => {
-            const currentBgColor = window.getComputedStyle(element).backgroundColor;
-            const rgbaMatch = currentBgColor.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
-            if (rgbaMatch) {
-                element.style.backgroundColor = `rgba(${rgbaMatch[1]}, ${rgbaMatch[2]}, ${rgbaMatch[3]}, ${e.target.value / 100})`;
-            }
-        });
-        saveOptions();
-    });
-
-    // Colors
-    const colorInputs = {
-        'cpu-color': 'cpuColor',
-        'memory-color': 'memoryColor',
-        'network-download-color': 'networkDownloadColor',
-        'network-upload-color': 'networkUploadColor',
-        'disk-color': 'diskColor'
-    };
-
-    Object.entries(colorInputs).forEach(([inputId, optionKey]) => {
-        const input = document.getElementById(inputId);
-        input.value = options[optionKey];
-        input.addEventListener('input', (e) => {
-            options[optionKey] = e.target.value;
-            updateChartColors();
-            saveOptions();
-        });
-    });
-
-    // Font settings
-    const fontFamily = document.getElementById('font-family');
-    fontFamily.value = options.fontFamily;
-    fontFamily.addEventListener('change', (e) => {
-        options.fontFamily = e.target.value;
-        document.body.style.fontFamily = e.target.value;
-        saveOptions();
-    });
-
-    const fontSize = document.getElementById('font-size');
-    fontSize.value = options.fontSize;
-    fontSize.addEventListener('input', (e) => {
-        options.fontSize = e.target.value;
-        document.body.style.fontSize = `${e.target.value}px`;
-        saveOptions();
-    });
-
-    // Graph settings
-    const dataPoints = document.getElementById('data-points');
-    dataPoints.value = options.dataPoints;
-    dataPoints.addEventListener('input', (e) => {
-        options.dataPoints = parseInt(e.target.value);
-        saveOptions();
-    });
-
-    const updateInterval = document.getElementById('update-interval');
-    updateInterval.value = options.updateInterval;
-    updateInterval.addEventListener('input', (e) => {
-        options.updateInterval = parseInt(e.target.value);
-        window.versions.stopUpdates();
-        window.versions.startUpdates();
-        saveOptions();
-    });
-
-    // Update value displays
-    document.querySelectorAll('input[type="range"]').forEach(input => {
-        const display = input.nextElementSibling;
-        if (display && display.classList.contains('value-display')) {
-            input.addEventListener('input', () => {
-                display.textContent = input.id === 'font-size' ? 
-                    `${input.value}px` : 
-                    input.id === 'update-interval' ? 
-                    `${input.value}ms` : 
-                    `${input.value}%`;
-            });
-        }
-    });
-
-    function updateChartColors() {
-        // Update CPU chart colors
-        cpuChart.data.datasets[0].borderColor = options.cpuColor;
-        cpuChart.data.datasets[0].backgroundColor = `${options.cpuColor}1A`;
-        cpuChart.update('none');
-
-        // Update memory chart colors
-        memoryChart.data.datasets[0].borderColor = options.memoryColor;
-        memoryChart.data.datasets[0].backgroundColor = `${options.memoryColor}1A`;
-        memoryChart.update('none');
-
-        // Update network chart colors
-        networkChart.data.datasets[0].borderColor = options.networkDownloadColor;
-        networkChart.data.datasets[0].backgroundColor = `${options.networkDownloadColor}1A`;
-        networkChart.data.datasets[1].borderColor = options.networkUploadColor;
-        networkChart.data.datasets[1].backgroundColor = `${options.networkUploadColor}1A`;
-        networkChart.update('none');
-
-        // Update disk pie chart colors
-        diskPieChart.data.datasets[0].backgroundColor = [
-            options.diskColor,
-            `${options.diskColor}33`
-        ];
-        diskPieChart.data.datasets[0].borderColor = [
-            options.diskColor,
-            options.diskColor
-        ];
-        diskPieChart.update('none');
-    }
-
-    function applyOptions() {
-        // Apply background opacity to all cards and containers
-        document.querySelectorAll('.card, .options-container, .os-info, .network-interface, .progress-bar').forEach(element => {
-            const currentBgColor = window.getComputedStyle(element).backgroundColor;
-            const rgbaMatch = currentBgColor.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
-            if (rgbaMatch) {
-                element.style.backgroundColor = `rgba(${rgbaMatch[1]}, ${rgbaMatch[2]}, ${rgbaMatch[3]}, ${options.backgroundOpacity / 100})`;
-            }
-        });
-        
-        // Apply font settings
-        document.body.style.fontFamily = options.fontFamily;
-        document.body.style.fontSize = `${options.fontSize}px`;
-        
-        // Apply colors
-        updateChartColors();
-    }
-
-    function saveOptions() {
-        localStorage.setItem('monitorOptions', JSON.stringify(options));
-    }
-
     // Common chart options
     const commonOptions = {
         responsive: true,
@@ -393,8 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
         cpuChart.data.labels.push(timestamp);
         cpuChart.data.datasets[0].data.push(parseFloat(data.cpu.usagePercent));
         
-        // Keep only last N data points based on options
-        if (cpuChart.data.labels.length > options.dataPoints) {
+        // Keep only last 15 data points for smoother visualization
+        if (cpuChart.data.labels.length > 15) {
             cpuChart.data.labels.shift();
             cpuChart.data.datasets[0].data.shift();
         }
@@ -410,8 +238,8 @@ document.addEventListener('DOMContentLoaded', () => {
         memoryChart.data.labels.push(timestamp);
         memoryChart.data.datasets[0].data.push(parseFloat(data.mem.usagePercent));
         
-        // Keep only last N data points based on options
-        if (memoryChart.data.labels.length > options.dataPoints) {
+        // Keep only last 15 data points for smoother visualization
+        if (memoryChart.data.labels.length > 15) {
             memoryChart.data.labels.shift();
             memoryChart.data.datasets[0].data.shift();
         }
@@ -477,8 +305,8 @@ document.addEventListener('DOMContentLoaded', () => {
             networkChart.data.datasets[0].data.push(parseFloat(data.network[0].downloadSpeed));
             networkChart.data.datasets[1].data.push(parseFloat(data.network[0].uploadSpeed));
             
-            // Keep only last N data points based on options
-            if (networkChart.data.labels.length > options.dataPoints) {
+            // Keep only last 15 data points for smoother visualization
+            if (networkChart.data.labels.length > 15) {
                 networkChart.data.labels.shift();
                 networkChart.data.datasets[0].data.shift();
                 networkChart.data.datasets[1].data.shift();

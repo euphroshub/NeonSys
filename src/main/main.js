@@ -13,12 +13,9 @@ app.whenReady().then(() => {
         width: 1024,
         height: 768,
         webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false
-        },
-        frame: false,
-        transparent: true,
-        backgroundColor: '#00000000'
+            // Enable preload script for secure IPC communication
+            preload: path.join(__dirname, 'preload.js')
+        }
     });
 
     // Load the main HTML file into the window
